@@ -1,0 +1,25 @@
+int tempSen = A5    // The pin where the temperature sensor reads the values 
+int analogValue; // to store the values of LM35 temperature sensor
+float temp;       // to hold values in decimals
+int greenLed = 11;  // the digital OUTPUT pin which connect the led 
+
+void setup ()
+{
+pinMode(greenLed,OUTPUT); // outputting voltage to led 
+Serial.begin(9600);     // the basic code for  starting serial monitor 
+}
+
+void loop ()
+{
+temp = analogRead(tempSen);   // Reading the values of the LM35
+temp = (5.0 * temp*100.0)/1024.0; // formula to convert into Celsius
+Serial.println("Temperture") // Display the word "Temperature"
+Serial.println("C"); // Display the "C" for degree Celsius 
+Serial.print(temp);  // Display the temperature in Celsius 
+delay(1000);
+
+if ( temp > 130) {  /* if the temperature is above 130 degrees Celsius which the around the reading the LM35 will read, indicating an reaction is taking place, indicating oxygen gas being produced */
+ 
+digitalWrite(greenLed,HIGH);  // Turn on LED
+}
+}
